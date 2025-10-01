@@ -250,7 +250,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
             cwd = cwd_uri.file_path
             cwd = string.gsub(cwd, wezterm.home_dir, "~")
             if cwd ~= nil then
-                title = string.format("%s@%s: %s", username, hostname, cwd)
+                title = cwd
             end
         end
     end

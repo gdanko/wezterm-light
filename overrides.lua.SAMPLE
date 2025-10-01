@@ -4,7 +4,7 @@ local overrides = {}
 
 function override_config(config)
     config["display"]["color_scheme"]["enable_gradient"] = false
-    config["display"]["color_scheme"]["profile"] = "kity"
+    config["display"]["color_scheme"]["profile"] = "kitty"
     config["display"]["color_scheme"]["scheme_name"] = "Everforest Dark Medium"
     config["display"]["color_scheme"]["theme"] = "auto"
     config["display"]["initial_cols"] = 132

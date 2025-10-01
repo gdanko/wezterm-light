@@ -21,11 +21,11 @@ function get_config()
             initial_cols = 80,
             initial_rows = 25,
             color_scheme = {
-                profile = "kitty",
-                theme = "auto",
                 enable_gradient = false,
+                profile = "kitty",
                 randomize_color_scheme = false,
-                scheme_name = "Novel"
+                scheme_name = "Novel",
+                theme = "auto",
             },
             window_background_opacity = 1,
             window_padding = {

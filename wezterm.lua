@@ -26,29 +26,17 @@ local config_appearance = {
     bold_brightens_ansi_colors = true,
     enable_scroll_bar = true,
     enable_wayland = true,
-    -- foreground_text_hsb = {
-    --     hue=1.0,
-    --     saturation=1.0,
-    --     balance=1.5
-    -- },
-    front_end    = "OpenGL",
+    front_end = "OpenGL",
     initial_cols = user_config["display"]["initial_cols"],
     initial_rows = user_config["display"]["initial_rows"],
-    line_height  = 1.0,
+    line_height = 1.0,
     native_macos_fullscreen_mode = false,
     use_resize_increments = true,
-
     window_background_opacity = user_config["display"]["window_background_opacity"],
     window_padding = user_config["display"]["window_padding"]
 }
 
 -- Color Scheme
-if user_config["display"]["color_scheme"]["theme"] == "auto" then
-    theme = util.get_appearance()
-else
-    theme = user_config["display"]["color_scheme"]["theme"]
-end
-
 color_scheme_map = color_config.get_color_scheme(
     user_config["display"]["color_scheme"]["profile"],
     user_config["display"]["color_scheme"]["scheme_name"],

@@ -18,7 +18,6 @@ function get_color_scheme(profile_name, scheme_name, randomize_color_scheme)
     if profile_name == nil or (profile_name ~= "iterm2" and profile_name ~= "kitty") then
         profile_name = "kitty"
     end
-    wezterm.log_info(profile_name)
 
     local color_scheme_map = {}
     local default_color_scheme = {

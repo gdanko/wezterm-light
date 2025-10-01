@@ -20,12 +20,6 @@ config_tabs_enabled         = true
 -- Define the configuration object
 full_config = wezterm.config_builder()
 
-color_scheme_map = color_config.get_color_scheme(
-    user_config["display"]["color_scheme"]["profile"],
-    user_config["display"]["color_scheme"]["scheme_name"],
-    user_config["display"]["color_scheme"]["randomize_color_scheme"]
-)
-
 -- General Appearance
 local config_appearance = {
     enabled = config_appearance_enabled,
@@ -49,6 +43,18 @@ local config_appearance = {
 }
 
 -- Color Scheme
+if user_config["display"]["color_scheme"]["theme"] == "auto" then
+    theme = util.get_appearance()
+else
+    theme = user_config["display"]["color_scheme"]["theme"]
+end
+
+color_scheme_map = color_config.get_color_scheme(
+    user_config["display"]["color_scheme"]["profile"],
+    user_config["display"]["color_scheme"]["scheme_name"],
+    user_config["display"]["color_scheme"]["randomize_color_scheme"]
+)
+
 local config_color_scheme = {}
 if user_config["display"]["color_scheme"]["enable_gradient"] then
     config_color_scheme = {
@@ -92,7 +98,6 @@ local config_fonts = {
         font_size = user_config["display"]["tab_bar_font"]["size"],
     },
     adjust_window_size_when_changing_font_size = false,
-    hide_tab_bar_if_only_one_tab = true,
     font_size = user_config["display"]["terminal_font"]["size"],
     font_rasterizer = "FreeType",
     font_shaper = "Harfbuzz",
@@ -134,6 +139,7 @@ local config_general = {
     exit_behavior = "CloseOnCleanExit",
     exit_behavior_messaging = "Verbose",
     hide_mouse_cursor_when_typing = true,
+    notification_handling = "AlwaysShow",
     skip_close_confirmation_for_processes_named = {
         "ash",
         "bash",
@@ -152,18 +158,28 @@ local config_keys = {
     keys = {
         {
             key = "r",
-            mods = "CMD|SHIFT",
+            mods = user_config["keymod"],
             action = wezterm.action.ReloadConfiguration,
         },
+        -- Copy all to clipboard #1
         {
             key = "a",
-            mods = "SHIFT|CTRL",
+            mods = user_config["keymod"],
             action = wezterm.action_callback(function(window, pane)
                 local dims = pane:get_dimensions()
                 local txt = pane:get_text_from_region(0, dims.scrollback_top, 0, dims.scrollback_top + dims.scrollback_rows)
                 window:copy_to_clipboard(txt:match("^%s*(.-)%s*$")) -- trim leading and trailing whitespace
             end)
         },
+        -- Copy all to clipboard #2
+        -- {
+        --     key =  "a",
+        --     mods = user_config["keymod"],
+        --     action = wezterm.action_callback(function(window, pane)
+        --         local selected = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
+        --         window:copy_to_clipboard(selected, "Clipboard")
+        --     end)
+        -- },
         {
             key = "k",
             mods = user_config["keymod"],
@@ -209,25 +225,7 @@ local config_keys = {
             mods = user_config["keymod"],
             action = wezterm.action.ActivateCommandPalette,
         },
-        -- Copy all to clipboard #1
-        {
-            key =  "a",
-            mods = user_config["keymod"],
-            action = wezterm.action_callback(function(window, pane)
-                local selected = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
-                window:copy_to_clipboard(selected, "Clipboard")
-            end)
-        },
-        -- Copy all to clipboard #2
-        -- {
-        --     key = "a",
-        --     mods = user_config["keymod"],
-        --     action = wezterm.action_callback(function(window, pane)
-        --         local dims = pane:get_dimensions()
-        --         local txt = pane:get_text_from_region(0, dims.scrollback_top, 0, dims.scrollback_top + dims.scrollback_rows)
-        --         window:copy_to_clipboard(txt:match("^%s*(.-)%s*$")) -- trim leading and trailing whitespace
-        --     end)
-        -- },
+
     },
     swap_backspace_and_delete = false,
 }
@@ -235,6 +233,7 @@ local config_keys = {
 -- Tabs
 local config_tabs = {
     enabled = config_tabs_enabled,
+    enable_tab_bar = true,
     hide_tab_bar_if_only_one_tab = false,
     show_tab_index_in_tab_bar = true,
     tab_bar_at_bottom = false,

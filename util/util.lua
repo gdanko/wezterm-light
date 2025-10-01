@@ -22,7 +22,7 @@ util.exists = filesystem.exists
 util.is_dir = filesystem.is_dir
 
 local json = require(folderOfThisFile .. "json")
-util.json_parse = json.json_parse
+util.json_parse_file = json.json_parse_file
 util.json_parse_string = json.json_parse_string
 
 local strings = require(folderOfThisFile .. "strings")

@@ -6,7 +6,7 @@ function json_parse_string(input)
     return json_data
 end
 
-function json_parse(filename)
+function json_parse_file(filename)
     if file_exists(filename) then
         local filehandle = io.open(filename, "r")
         local json_string = filehandle:read("*a")
@@ -18,7 +18,7 @@ function json_parse(filename)
     end
 end
 
-json.json_parse = json_parse
+json.json_parse_file = json_parse_file
 json.json_parse_string = json_parse_string
 
 return json

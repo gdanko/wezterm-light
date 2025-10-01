@@ -32,7 +32,7 @@ function get_color_scheme(profile_name, scheme_name, randomize_color_scheme)
     }
 
     local schemes_filename = util.path_join({wezterm.config_dir, "color-schemes-" .. profile_name .. ".json"})
-    local all_color_schemes = util.json_parse(schemes_filename)
+    local all_color_schemes = util.json_parse_file(schemes_filename)
     if all_color_schemes ~= nil then
         if randomize_color_scheme then
             scheme_name = select_random_scheme(all_color_schemes)

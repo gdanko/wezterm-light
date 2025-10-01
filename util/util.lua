@@ -32,4 +32,7 @@ util.split_lines = strings.split_lines
 util.split_words = strings.split_words
 util.string_split = strings.string_split
 
+local environment = require(folderOfThisFile .. "environment")
+util.get_appearance = environment.get_appearance
+
 return util

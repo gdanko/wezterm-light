@@ -25,7 +25,6 @@ function get_config()
                 profile = "kitty",
                 randomize_color_scheme = false,
                 scheme_name = "Novel",
-                theme = "auto",
             },
             window_background_opacity = 1,
             window_padding = {

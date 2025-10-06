@@ -41,8 +41,13 @@ function config_parser.get_config()
                 left   = 10,
                 right  = 20,
                 top    = 0,
-                bottom = 0
+                bottom = 0,
             }
+        },
+        environment = {
+            audible_bell     = "Disabled",
+            scrollback_lines = 20000,
+            term             = "xterm-256color",
         },
         tabs = {
             title_is_cwd = true,

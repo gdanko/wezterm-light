@@ -7,6 +7,8 @@ local username = os.getenv('USER')
 local hostname = wezterm.hostname()
 local user_config = config_parser.get_config()
 
+-- wezterm.log_info(user_config)
+
 -- Enable/disable config blocks at the top level
 config_appearance_enabled   = true
 config_color_scheme_enabled = true
@@ -62,13 +64,13 @@ end
 -- Environment
 local config_environment = {
     enabled                     = config_environment_enabled,
-    audible_bell                = "Disabled",
+    audible_bell                = user_config.environment.audible_bell,
     automatically_reload_config = true,
     pane_focus_follows_mouse    = true, -- Doesn't seem to work??
     prefer_egl                  = true,
     scroll_to_bottom_on_input   = true,
-    scrollback_lines            = 100000,
-    term                        = "xterm-256color",
+    scrollback_lines            = user_config.environment.scrollback_lines,
+    term                        = user_config.environment.term,
 }
 
 -- Fonts

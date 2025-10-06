@@ -20,8 +20,6 @@ config_tabs_enabled         = true
 -- Define the configuration object
 full_config = wezterm.config_builder()
 
-wezterm.log_info(user_config.display.initial_cols)
-
 -- General Appearance
 local config_appearance = {
     enabled = config_appearance_enabled,
@@ -40,7 +38,6 @@ local config_appearance = {
 
 -- Color Scheme
 color_scheme_map = color_config.get_color_scheme(
-    user_config.display.color_scheme.profile,
     user_config.display.color_scheme.scheme_name,
     user_config.display.color_scheme.randomize_color_scheme
 )

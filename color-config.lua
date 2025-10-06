@@ -41,14 +41,14 @@ function get_color_scheme(profile_name, scheme_name, randomize_color_scheme)
         if all_color_schemes[scheme_name] ~= nil then
             scheme = all_color_schemes[scheme_name]
             color_scheme_map = {
-                ansi         = scheme["ansi"],
-                background   = scheme["background"],
-                brights      = scheme["brights"],
-                cursor_bg    = scheme["cursor_bg"],
-                cursor_fg    = scheme["cursor_fg"],
-                foreground   = scheme["foreground"],
-                selection_bg = scheme["selection_fg"],
-                selection_fg = scheme["selection_bg"],
+                ansi         = scheme.ansi,
+                background   = scheme.background,
+                brights      = scheme.brights,
+                cursor_bg    = scheme.cursor_bg,
+                cursor_fg    = scheme.cursor_fg,
+                foreground   = scheme.foreground,
+                selection_bg = scheme.selection_fg,
+                selection_fg = scheme.selection_bg,
             }
         else
             color_scheme_map = default_color_scheme

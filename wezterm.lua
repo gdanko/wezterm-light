@@ -285,8 +285,8 @@ configs = {
 
 -- Iterate the configuration blocks and if they're enabled, parse them
 for index, block in ipairs(configs) do
-    if block["enabled"] ~= nil then
-        if block["enabled"] == true then
+    if block.enabled ~= nil then
+        if block.enabled == true then
             for key, value in pairs(block) do
                 -- The key "enabled" is not valid so ignore it
                 if key ~= "enabled" then

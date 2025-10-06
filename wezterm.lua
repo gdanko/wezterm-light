@@ -37,11 +37,6 @@ local config_appearance = {
 }
 
 -- Color Scheme
-color_scheme_map = color_config.get_color_scheme(
-    user_config.display.color_scheme.scheme_name,
-    user_config.display.color_scheme.randomize_color_scheme
-)
-
 local config_color_scheme = {}
 if user_config.display.color_scheme.enable_gradient then
     config_color_scheme = {
@@ -57,7 +52,10 @@ if user_config.display.color_scheme.enable_gradient then
 else
     config_color_scheme = {
         enabled = config_color_scheme_enabled,
-        colors  = color_scheme_map,
+        colors  = color_config.get_color_scheme(
+            user_config.display.color_scheme.scheme_name,
+            user_config.display.color_scheme.randomize_color_scheme
+        )
     }
 end
 

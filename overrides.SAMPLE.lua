@@ -4,7 +4,6 @@ local overrides = {}
 
 function override_config(config)
     config.display.color_scheme.enable_gradient = false
-    config.display.color_scheme.profile = "kitty"
     config.display.color_scheme.scheme_name = "Everforest Dark Medium"
     config.display.initial_cols = 132
     config.display.initial_rows = 40

@@ -14,11 +14,7 @@ function select_random_scheme(all_color_schemes)
     return keys[index]
 end
 
-function get_color_scheme(profile_name, scheme_name, randomize_color_scheme)
-    if profile_name == nil or (profile_name ~= "iterm2" and profile_name ~= "kitty") then
-        profile_name = "kitty"
-    end
-
+function get_color_scheme(scheme_name, randomize_color_scheme)
     local color_scheme_map = {}
     local default_color_scheme = {
         background   = "#dfdbc3",
@@ -31,7 +27,7 @@ function get_color_scheme(profile_name, scheme_name, randomize_color_scheme)
         brights      = {"#7f7f7f", "#cc0000", "#009600", "#d06b00", "#0000cc", "#cc00cc", "#0086cb", "#ffffff"},
     }
 
-    local schemes_filename = util.path_join({wezterm.config_dir, "color-schemes-" .. profile_name .. ".json"})
+    local schemes_filename = util.path_join({wezterm.config_dir, "wezterm-color-schemes.json"})
     local all_color_schemes = util.json_parse_file(schemes_filename)
     if all_color_schemes ~= nil then
         if randomize_color_scheme then

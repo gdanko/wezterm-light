@@ -1,0 +1,24 @@
+local wezterm = require "wezterm"
+
+local overrides = {}
+
+function override_config(config)
+    config.display.color_scheme.enable_gradient = false
+    config.display.color_scheme.profile = "kitty"
+    config.display.color_scheme.scheme_name = "Everforest Dark Medium"
+    config.display.initial_cols = 132
+    config.display.initial_rows = 40
+    config.display.tab_bar_font.family = "Roboto"
+    config.display.tab_bar_font.size = 10
+    config.display.tab_bar_font.stretch = "Condensed"
+    config.display.tab_bar_font.weight = "Bold"
+    config.display.terminal_font.family = "Noto Sans Mono"
+    config.display.terminal_font.size = 10
+    config.display.window_background_opacity = 1
+    config.tabs.title_is_cwd = false
+    return config
+end
+
+overrides.override_config = override_config
+
+return overrides

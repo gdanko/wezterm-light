@@ -3,7 +3,17 @@ local util = require "util.util"
 
 local config_parser = {}
 
-function get_config()
+-- Recursive function to convert table into "namedtuple-like" table
+local function make_namedtuple(t)
+    if type(t) ~= "table" then return t end
+    local nt = {}
+    for k, v in pairs(t) do
+        nt[k] = make_namedtuple(v)
+    end
+    return nt
+end
+
+function config_parser.get_config()
     local config = {
         display = {
             tab_bar_font = {
@@ -39,23 +49,23 @@ function get_config()
         },
     }
 
-    -- set some OS-specific defaults
-    if (wezterm.target_triple == "x86_64-apple-darwin") or (wezterm.target_triple == "aarch64-apple-darwin") then
-        config["keymod"] = "SUPER"
-        config["os_name"] = "darwin"
-    elseif (wezterm.target_triple == "x86_64-unknown-linux-gnu") or (wezterm.target_triple == "aarch64-unknown-linux-gnu") then
-        config["keymod"] = "SHIFT|CTRL"
-        config["os_name"] = "linux"
+    -- OS-specific defaults
+    if wezterm.target_triple:find("apple") then
+        config.keymod = "SUPER"
+        config.os_name = "darwin"
+    elseif wezterm.target_triple:find("linux") then
+        config.keymod = "SHIFT|CTRL"
+        config.os_name = "linux"
     end
 
-    if util.file_exists( util.path_join({wezterm.config_dir, "overrides.lua"})) then
-        overrides = require "overrides"
+    -- Apply overrides if present
+    if util.file_exists(util.path_join({wezterm.config_dir, "overrides.lua"})) then
+        local overrides = require "overrides"
         config = overrides.override_config(config)
     end
 
-    return config
+    -- Convert to "namedtuple-like" table
+    return make_namedtuple(config)
 end
-
-config_parser.get_config = get_config
 
 return config_parser

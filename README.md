@@ -26,5 +26,5 @@ git clone https://github.com/gdanko/wezterm-light wezterm
 ```
 
 ### Create an `overrides.lua` File
-1. `cp overrides.lua.SAMPLE overrides.lua`
+1. `cp overrides.SAMPLE.lua overrides.lua`
 2. `vim overrides.lua` (Yeah I'm a [vim](https://www.vim.org) fan)

@@ -20,6 +20,8 @@ config_tabs_enabled         = true
 -- Define the configuration object
 full_config = wezterm.config_builder()
 
+wezterm.log_info(user_config.display.initial_cols)
+
 -- General Appearance
 local config_appearance = {
     enabled = config_appearance_enabled,
@@ -27,24 +29,24 @@ local config_appearance = {
     enable_scroll_bar = true,
     enable_wayland = true,
     front_end = "OpenGL",
-    initial_cols = user_config["display"]["initial_cols"],
-    initial_rows = user_config["display"]["initial_rows"],
+    initial_cols = user_config.display.initial_cols,
+    initial_rows = user_config.display.initial_rows,
     line_height = 1.0,
     native_macos_fullscreen_mode = false,
     use_resize_increments = true,
-    window_background_opacity = user_config["display"]["window_background_opacity"],
-    window_padding = user_config["display"]["window_padding"]
+    window_background_opacity = user_config.display.window_background_opacity,
+    window_padding = user_config.display.window_padding
 }
 
 -- Color Scheme
 color_scheme_map = color_config.get_color_scheme(
-    user_config["display"]["color_scheme"]["profile"],
-    user_config["display"]["color_scheme"]["scheme_name"],
-    user_config["display"]["color_scheme"]["randomize_color_scheme"]
+    user_config.display.color_scheme.profile,
+    user_config.display.color_scheme.scheme_name,
+    user_config.display.color_scheme.randomize_color_scheme
 )
 
 local config_color_scheme = {}
-if user_config["display"]["color_scheme"]["enable_gradient"] then
+if user_config.display.color_scheme.enable_gradient then
     config_color_scheme = {
         enabled = config_color_scheme_enabled,
         window_background_gradient = {
@@ -79,21 +81,21 @@ local config_fonts = {
     enabled = config_fonts_enabled,
     window_frame = {
         font = wezterm.font {
-            family  = user_config["display"]["tab_bar_font"]["family"],
-            weight  = user_config["display"]["tab_bar_font"]["weight"],
-            stretch = user_config["display"]["tab_bar_font"]["stretch"],
+            family  = user_config.display.tab_bar_font.family,
+            weight  = user_config.display.tab_bar_font.weight,
+            stretch = user_config.display.tab_bar_font.stretch,
         },
-        font_size = user_config["display"]["tab_bar_font"]["size"],
+        font_size = user_config.display.tab_bar_font.size,
     },
     adjust_window_size_when_changing_font_size = false,
-    font_size = user_config["display"]["terminal_font"]["size"],
+    font_size = user_config.display.terminal_font.size,
     font_rasterizer = "FreeType",
     font_shaper = "Harfbuzz",
     font = wezterm.font_with_fallback{
         {
-            family  = user_config["display"]["terminal_font"]["family"],
-            weight  = user_config["display"]["terminal_font"]["weight"],
-            stretch = user_config["display"]["terminal_font"]["stretch"],
+            family  = user_config.display.terminal_font.family,
+            weight  = user_config.display.terminal_font.weight,
+            stretch = user_config.display.terminal_font.stretch,
         }
     },
     -- https://wezfurlong.org/wezterm/config/lua/config/font_rules.html
@@ -108,9 +110,9 @@ local config_fonts = {
             invisible     = false,
             font          = wezterm.font_with_fallback{
                 {
-                    family  = user_config["display"]["terminal_font"]["family"],
-                    weight  = user_config["display"]["terminal_font"]["weight"],
-                    stretch = user_config["display"]["terminal_font"]["stretch"],
+                    family  = user_config.display.terminal_font.family,
+                    weight  = user_config.display.terminal_font.weight,
+                    stretch = user_config.display.terminal_font.stretch,
                 }
             }
         }
@@ -133,7 +135,9 @@ local config_general = {
         "bash",
         "csh",
         "fish",
+        "ksh",
         "sh",
+        "tcsh",
         "tmux",
         "zsh",
     },
@@ -146,13 +150,13 @@ local config_keys = {
     keys = {
         {
             key = "r",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = wezterm.action.ReloadConfiguration,
         },
         -- Copy all to clipboard #1
         {
             key = "a",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = wezterm.action_callback(function(window, pane)
                 local dims = pane:get_dimensions()
                 local txt = pane:get_text_from_region(0, dims.scrollback_top, 0, dims.scrollback_top + dims.scrollback_rows)
@@ -162,7 +166,7 @@ local config_keys = {
         -- Copy all to clipboard #2
         -- {
         --     key =  "a",
-        --     mods = user_config["keymod"],
+        --     mods = user_config.keymod,
         --     action = wezterm.action_callback(function(window, pane)
         --         local selected = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
         --         window:copy_to_clipboard(selected, "Clipboard")
@@ -170,7 +174,7 @@ local config_keys = {
         -- },
         {
             key = "k",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = act.Multiple {
                 act.ClearScrollback "ScrollbackAndViewport",
                 act.SendKey { key = "L", mods = "CTRL" },
@@ -178,12 +182,12 @@ local config_keys = {
         },
         {
             key = "Enter",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = "ToggleFullScreen"
         },
         {
             key = "t",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action=wezterm.action {
                 SpawnCommandInNewTab = {
                     cwd = wezterm.home_dir
@@ -192,7 +196,7 @@ local config_keys = {
         },
         {
             key = "n",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = wezterm.action {
                 SpawnCommandInNewWindow = {
                     cwd = wezterm.home_dir
@@ -201,7 +205,7 @@ local config_keys = {
         },
         {
             key = "w",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = wezterm.action {
                 CloseCurrentTab = {
                     confirm = true
@@ -210,7 +214,7 @@ local config_keys = {
         },
         {
             key = "p",
-            mods = user_config["keymod"],
+            mods = user_config.keymod,
             action = wezterm.action.ActivateCommandPalette,
         },
 
@@ -231,8 +235,7 @@ local config_tabs = {
 
 -- Manage the status bar colorization and content
 local config_status_bar = {
-    wezterm.on('update-right-status',
-    function(window, pane)
+    wezterm.on('update-right-status', function(window, pane)
         -- This does nothing, but serves as a placeholder
         -- for putting things in the status bar.
     end)
@@ -244,7 +247,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     local title = util.basename(pane.foreground_process_name)
     local cwd = nil
 
-    if user_config["tabs"]["title_is_cwd"] then
+    if user_config.tabs.title_is_cwd then
         local cwd_uri = pane.current_working_dir
         if cwd_uri then
             cwd = cwd_uri.file_path

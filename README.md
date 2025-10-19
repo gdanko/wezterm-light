@@ -1,5 +1,5 @@
 # wezterm-light
- This is a lighter, less complicated version of my [WezTerm](https://wezterm.org) configuration [repo](https://github.com/gdanko/wezterm). While the other one does work, it does a lot and has many moving parts. Not everyone will want all of its features.
+ This is a lighter, less complicated version of my [WezTerm](https://wezterm.org) configuration [repo](https://github.com/bananazon/wezterm). While the other one does work, it does a lot and has many moving parts. Not everyone will want all of its features.
 
  ## Requirements
  * wezterm on either Darwin or Linux. I don't have a Windows computer to test on.
